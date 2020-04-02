@@ -34,4 +34,4 @@ public:
   }
 };
 
-#endif /* end of include guard: __WASHING_MACHINES__ */
+#endif
