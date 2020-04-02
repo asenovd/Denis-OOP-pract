@@ -53,4 +53,3 @@ int main() {
   fillArrayFromFile();
   return 0;
 }
-/// g++ main.cpp WashingMachines.cpp -o app
