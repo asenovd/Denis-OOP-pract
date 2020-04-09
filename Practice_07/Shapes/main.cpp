@@ -1,3 +1,10 @@
+/*
+
+  Changed the task a little so the code makes more sense:
+  Instead of Triangle I've made the Cube class, I believe it showcases the usage of inheritance better than Triangle would have.
+  
+*/
+
 #include <iostream>
 #include "shape.hpp"
 #include "rectangular.hpp"
