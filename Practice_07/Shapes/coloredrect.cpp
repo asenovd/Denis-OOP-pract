@@ -14,17 +14,17 @@ ColoredRectangular::ColoredRectangular(const char* temp_color) {
 }
 
 
-ColoredRectangular::ColoredRectangular(const char* temp_color, Rectangular temp_rect) : Rectangular::Rectangular(temp_rect.getWidth(), temp_rect.getLength()) {
+ColoredRectangular::ColoredRectangular(const char* temp_color, Rectangular temp_rect) : Rectangular(temp_rect.getWidth(), temp_rect.getLength()) {
   color = new char[strlen(temp_color) + 1];
   strcpy(color, temp_color);
 }
 
-ColoredRectangular::ColoredRectangular(double tempW, double tempL, const char* temp_color) : Rectangular::Rectangular(tempW, tempL) {
+ColoredRectangular::ColoredRectangular(double tempW, double tempL, const char* temp_color) : Rectangular(tempW, tempL) {
   color = new char[strlen(temp_color) + 1];
   strcpy(color, temp_color);
 }
 
-ColoredRectangular::ColoredRectangular(TYPE temp_type, unsigned temp_dim, double tempW, double tempL, const char* temp_color) : Rectangular::Rectangular(temp_type, temp_dim, tempW, tempL) {
+ColoredRectangular::ColoredRectangular(TYPE temp_type, unsigned temp_dim, double tempW, double tempL, const char* temp_color) : Rectangular(temp_type, temp_dim, tempW, tempL) {
   color = new char[strlen(temp_color) + 1];
   strcpy(color, temp_color);
 }
