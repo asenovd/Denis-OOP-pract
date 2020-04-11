@@ -2,15 +2,15 @@
 #include "shape.hpp"
 #include "square.hpp"
 
-Square::Square() : Shape::Shape() {
+Square::Square() : Shape() {
   length = 0;
 }
 
-Square::Square(unsigned temp_length) : Shape::Shape() {
+Square::Square(unsigned temp_length) : Shape() {
   length = temp_length;
 }
 
-Square::Square(TYPE temp_type, unsigned temp_dim, unsigned temp_length) : Shape::Shape(temp_type, temp_dim) {
+Square::Square(TYPE temp_type, unsigned temp_dim, unsigned temp_length) : Shape(temp_type, temp_dim) {
   length = temp_length;
 }
 
