@@ -9,6 +9,7 @@ protected:
 public:
   Classification();
   Classification(double, const char*, const char*);
+  ~Classification();
   void print();
 };
 
