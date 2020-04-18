@@ -4,20 +4,20 @@
 
 Banana::Banana() : Fruit(), Product() {}
 
-Banana::Banana(Taste a1,
-   double a2,
-   double a3,
-   double a4,
-   double a5,
-   double a6,
-   const char* a7,
-   const char* a8,
-   double a9,
-   double a10,
-   double a11,
-   double a12) :
-   Fruit(a1, a2, a3, a4, a5),
-   Product(a6, a7, a8, a9, a10, a11, a12) {}
+Banana::Banana(Taste temp_taste,
+   double temp_calories,
+   double temp_protein,
+   double temp_carbs,
+   double temp_fats,
+   double temp_price,
+   const char* temp_barcode,
+   const char* temp_category,
+   double temp_weight,
+   double temp_width,
+   double temp_length,
+   double temp_height) :
+   Fruit(temp_taste, temp_calories, temp_protein, temp_carbs, temp_fats),
+   Product(temp_price, temp_barcode, temp_category, temp_weight, temp_width, temp_length, temp_height) {}
 
 double Banana::getPricePerCallories() {
   return price/calories;
