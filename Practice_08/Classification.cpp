@@ -19,6 +19,11 @@ Classification::Classification(double temp_price, const char* temp_barcode, cons
   strcpy(category, temp_category);
 }
 
+Classification::~Classification() {
+  delete[] barcode;
+  delete[] category;
+}
+
 void Classification::print() {
   std::cout << price << " " << (barcode ? barcode : "Unknown") << " " << (category ? category : "Unknown") << std::endl;
 }
