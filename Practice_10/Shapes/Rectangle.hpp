@@ -6,10 +6,12 @@
 class Rectangle : public Shape {
   double width;
   double length;
+
 public:
   Rectangle(double, double);
   double getArea();
   double getPerimeter();
+  
 };
 
 #endif

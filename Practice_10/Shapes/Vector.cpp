@@ -5,6 +5,7 @@
 
 template <typename TYPE>
 class Vector {
+protected:
   TYPE* data;
   unsigned reservedSpace;
   unsigned count;
@@ -24,9 +25,6 @@ public:
   unsigned size() const;
   void push(TYPE const &);
   void remove(unsigned);
-
-  double getMaxPerim();
-  double getMaxArea();
 };
 
 
@@ -116,26 +114,6 @@ void Vector<TYPE>::remove(unsigned ind) {
     delete[] data;
     data = newData;
   }
-}
-
-template <typename TYPE>
-double Vector<TYPE>::getMaxPerim() {
-  double mx = data[0]->getPerimeter();
-  for(unsigned i=1; i<count; ++i) {
-    double temp = data[i]->getPerimeter();
-    if(mx < temp) mx = temp;
-  }
-  return mx;
-}
-
-template <typename TYPE>
-double Vector<TYPE>::getMaxArea() {
-  double mx = data[0]->getArea();
-  for(unsigned i=1; i<count; ++i) {
-    double temp = data[i]->getArea();
-    if(mx < temp) mx = temp;
-  }
-  return mx;
 }
 
 #endif

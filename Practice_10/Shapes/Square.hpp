@@ -4,8 +4,10 @@
 #include "Rectangle.hpp"
 
 class Square : public Rectangle {
+  
 public:
   Square(double);
+
 };
 
 #endif

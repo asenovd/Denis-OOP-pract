@@ -7,10 +7,12 @@ class Triangle : public Shape {
   double sideA;
   double sideB;
   double sideC;
+
 public:
   Triangle(double, double, double);
   double getArea();
   double getPerimeter();
+  
 };
 
 #endif
