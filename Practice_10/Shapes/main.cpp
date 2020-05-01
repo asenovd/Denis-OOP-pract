@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Shape.hpp"
 #include "Triangle.hpp"
 #include "Rectangle.hpp"
 #include "Square.hpp"
@@ -18,8 +19,7 @@ int main() {
   arr.push(&r1);
   arr.push(&s1);
 
-  cout << arr.getMaxPerim() << endl;
-  cout << arr.getMaxArea() << endl;
+  cout << arr.getMax(&Shape::getArea) << endl;
 
   return 0;
 }

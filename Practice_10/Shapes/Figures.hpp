@@ -9,8 +9,12 @@
 class Figures : public Vector<Shape*> {
 
 public:
+/*
   double getMaxPerim();
   double getMaxArea();
+*/
+
+  double getMax(double (Shape::*func)());
 
 };
 
