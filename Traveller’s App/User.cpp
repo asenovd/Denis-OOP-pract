@@ -43,24 +43,6 @@ User* User::copy() {
   return new User(*this);
 }
 
-void User::saveRaw() const {
-  std::ofstream file("users.db", std::ios::binary | std::ios::app);
-
-  int nameLen = strlen(name);
-  file.write((char*)&nameLen, sizeof(nameLen));
-  file.write(name, nameLen);
-
-  int passLen = strlen(pass);
-  file.write((char*)&passLen, sizeof(passLen));
-  file.write(pass, passLen);
-
-  int emailLen = strlen(email);
-  file.write((char*)&emailLen, sizeof(emailLen));
-  file.write(email, emailLen);
-
-  file.close();
-}
-
 void User::addTravel(Travels* temp) {
   travels.push(temp);
 
@@ -96,4 +78,25 @@ void User::printUserTravels() {
   for(int i=0, sze=travels.size(); i<sze; ++i) {
     std::cout << *travels[i] << std::endl;
   }
+}
+
+
+void User::saveRaw() {
+  std::fstream file("users.db", std::ios::out | std::ios::binary | std::ios::app);
+
+  file.seekp(0, std::ios::end);
+
+  int nameLen = strlen(name);
+  file.write((char*)&nameLen, sizeof(nameLen));
+  file.write(name, nameLen);
+
+  int passLen = strlen(pass);
+  file.write((char*)&passLen, sizeof(passLen));
+  file.write(pass, passLen);
+
+  int emailLen = strlen(email);
+  file.write((char*)&emailLen, sizeof(emailLen));
+  file.write(email, emailLen);
+
+  file.close();
 }

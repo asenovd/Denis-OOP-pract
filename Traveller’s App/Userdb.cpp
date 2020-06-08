@@ -5,6 +5,9 @@
 #include "Userdb.hpp"
 #include "User.hpp"
 
+using std::cout;
+using std::endl;
+
 bool Userdb::isEmailAvailable(const char* temp) const {
   for(unsigned i=0; i<count; ++i) {
     if(!strcmp(temp, data[i]->getEmail())) return 0;
@@ -19,12 +22,11 @@ std::ostream &operator<<(std::ostream &ostr, Userdb &temp) {
   return ostr;
 }
 
-void Userdb::save() const {
-  std::ofstream file2("users.db", std::ios::binary | std::ios::ate);
-  
+void Userdb::save() {
+  std::fstream file2("users.db", std::ios::out | std::ios::binary | std::ios::trunc);
+
   file2.seekp(0, std::ios::beg);
   file2.write((char*)&count, sizeof(count));
-
   file2.seekp(0, std::ios::end);
   file2.close();
 
@@ -36,6 +38,7 @@ void Userdb::load() {
   std::ifstream file("users.db", std::ios::binary);
   file.read((char*)&counter, sizeof(counter));
   std::cout << counter << std::endl;
+
   for(unsigned i=0; i<counter; ++i) {
     int nameLen;
     file.read((char *)&nameLen, sizeof(nameLen));

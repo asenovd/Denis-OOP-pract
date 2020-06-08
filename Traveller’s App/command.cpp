@@ -215,7 +215,7 @@ Commands::~Commands() {
 }
 
 void Commands::run() {
-  char* command;
+  char* command = nullptr;
   do {
     cout << "\n> ";
     buffer = new char[bufferSize];

@@ -9,7 +9,7 @@ class Userdb : public Vector<User*> {
 public:
   bool isEmailAvailable(const char*) const;
   friend std::ostream &operator<<(std::ostream &, Userdb &);
-  void save() const;
+  void save();
   void load();
 };
 

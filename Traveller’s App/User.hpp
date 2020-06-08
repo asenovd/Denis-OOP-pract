@@ -20,7 +20,7 @@ public:
   friend std::ostream &operator<<(std::ostream&, User const &);
 
   User* copy();
-  void saveRaw() const;
+  void saveRaw();
   void addTravel(Travels*);
 
   void setName(const char*);
