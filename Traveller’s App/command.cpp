@@ -13,31 +13,32 @@ using std::endl;
 
 void Commands::reg() {
   char* nname = extractCommand();
-  char* npass = extractCommand();
-  char* nemail = extractCommand();
   if(validateName(nname)) {
-    if(validateEmail(nemail)) {
-      if(userdb.isEmailAvailable(nemail)) {
-        User temp(nname, npass, nemail);
-        userdb.push(temp.copy());
-        cout << "User successfully registered!\n";
-        userdb.save();
-
+    char* npass = extractCommand();
+    if(validatePass(npass)) {
+      char* nemail = extractCommand();
+      if(validateEmail(nemail)) {
+        if(userdb.isEmailAvailable(nemail)) {
+          User tempuser(nname, npass, nemail);
+          userdb.push(tempuser.copy());
+          userdb.saveTXT();
+        }
+        else {
+          cout << "Email already taken!\n";
+        }
       }
       else {
-        cout << "Email already taken!\n";
+        cout << "Please enter a valid email!\n";
       }
     }
     else {
-      cout << "Please enter a valid email!\n";
+      cout << "Password has to be under 15 characters!\n";
     }
   }
   else {
     cout << "Please enter a valid name!\n";
   }
-  delete[] nname;
-  delete[] npass;
-  delete[] nemail;
+
 }
 void Commands::show() {
   cout << userdb;
@@ -55,7 +56,7 @@ void Commands::login() {
           cout << "\n> ";
           cin.getline(buffer, bufferSize);
           char* lcommand = extractCommand();
-          if(!strcmp(lcommand, "logout")) {
+          if(!strcmp(lcommand, "logout") || !strcmp(lcommand, "exit")) {
             cout << "Logging out of user " << userdb[i]->getName() << "!\n";
             delete[] temail;
             delete[] tpass;
@@ -133,6 +134,14 @@ void Commands::login() {
           else if(!strcmp(lcommand, "show_travels")) {
             userdb[i]->printUserTravels();
           }
+          else if(!strcmp(lcommand, "add_friend")) {
+            char* fremail = extractCommand();
+            for(unsigned j=0, sze = userdb.size(); j<sze; ++j) {
+              if(!strcmp(fremail, userdb[j]->getEmail())) {
+                userdb[i]->addFriend(userdb[j]);
+              }
+            }
+          }
           else {
             cout << "Unknown command!\n";
           }
@@ -150,9 +159,29 @@ void Commands::login() {
   delete[] temail;
   delete[] tpass;
 }
-void Commands::load() {
-  userdb.load();
+void Commands::help() {
+  cout << "List of available commands:\n "
+
+       << "  exit                               -    Quits the application\n "
+       << "  help                               -    Prints this message\n "
+       << "  login <name> <password> <email>    -    Logs into an existing user\n "
+       << "  register <email> <password>        -    Adds a new user to the database\n "
+       << "  show                               -    Prints all the users in the database\n\n"
+
+       << "Information on names, passwords and emails:\n "
+       << "  User entered names may only contain lower and upper case latin letters;\n "
+       << "  Passwords must be under 15 symbols, no restrictions to the symbols\n "
+       << "  Email addresses must be valid (e.g. integral@fmi-sofia.bg )\n\n"
+
+       << "User commands, available after logging in:\n "
+
+       << "  logout                -    Logs out of the current user, returning to the main menu\n "
+       << "  add_friend <email>    -    Adds an existing user to the current user's friendlist\n "
+       << "  add_travel            -    Adds a travel destination using appropriate prompts\n "
+       << "  show_travels          -    Prints all the places the user has been\n ";
+
 }
+
 
 char* Commands::extractCommand() {
   unsigned i=0;
@@ -183,7 +212,7 @@ bool Commands::callCommand(const char* command) {
     show();
     return true;
   }
-  else if(!strcmp(command, "reg")) {
+  else if(!strcmp(command, "register")) {
     reg();
     return true;
   }
@@ -191,8 +220,8 @@ bool Commands::callCommand(const char* command) {
     login();
     return true;
   }
-  else if(!strcmp(command, "load")) {
-    load();
+  else if(!strcmp(command, "help")) {
+    help();
     return true;
   }
   else {
@@ -200,7 +229,6 @@ bool Commands::callCommand(const char* command) {
     return true;
   }
 }
-
 
 Commands::Commands() {
   buffer = nullptr;
@@ -215,6 +243,13 @@ Commands::~Commands() {
 }
 
 void Commands::run() {
+  userdb.loadTXT();
+  if(userdb.size()) {
+    for(unsigned i=0, sze = userdb.size(); i<sze; ++i) {
+      userdb[i]->loadTravel();
+    }
+  }
+
   char* command = nullptr;
   do {
     cout << "\n> ";

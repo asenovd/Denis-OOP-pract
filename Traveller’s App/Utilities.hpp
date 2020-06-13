@@ -4,17 +4,11 @@
 bool isEscapeSeq(const char);
 bool isDivider(const char);
 bool isCharacter(const char);
-bool isNumber(const char);
-bool isStringNumber(const char*);
 
 int strToInt(const char*);
-double strtoDouble(const char*);
-
-unsigned findTag(const char*);
-void removeAfterTag(const char*);
 
 bool validateName(const char*);
-bool validateAge(unsigned);
+bool validatePass(const char*);
 bool validateEmail(const char*);
 bool validateFileImage(const char*);
 

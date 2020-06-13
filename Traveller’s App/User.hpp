@@ -1,14 +1,15 @@
 #ifndef __USER_HPP__
 #define __USER_HPP__
 
+#include "TravelDest.hpp"
 #include "Vector.cpp"
-#include "Travels.hpp"
 
 class User {
   char* name;
   char* pass;
   char* email;
-  Vector<Travels*> travels;
+  TravelDest travels;
+  Vector<User*> frl;
 
 public:
   User();
@@ -20,8 +21,11 @@ public:
   friend std::ostream &operator<<(std::ostream&, User const &);
 
   User* copy();
-  void saveRaw();
+  void saveRawBIN();
+  void saveRawTXT();
+  void loadTravel();
   void addTravel(Travels*);
+  void addFriend(User*);
 
   void setName(const char*);
   void setPass(const char*);
@@ -31,6 +35,7 @@ public:
   const char* getPass() const;
   const char* getEmail() const;
   void printUserTravels();
+  void printUserFriends();
 
 };
 

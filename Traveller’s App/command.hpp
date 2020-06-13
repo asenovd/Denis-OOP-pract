@@ -5,14 +5,14 @@
 
 class Commands {
   char* buffer;
-  const static int bufferSize = 256;
+  const static int bufferSize = 512;
 
   Userdb userdb;
 
   void reg();
   void show();
   void login();
-  void load();
+  void help();
 
   char* extractCommand();
   bool callCommand(const char*);

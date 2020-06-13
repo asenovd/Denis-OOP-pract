@@ -5,10 +5,10 @@
 
 class Travels {
   char* destination;
-  Date timePeriod[2];
-  unsigned short grade;
   char* comment;
   char* photos;
+  Date timePeriod[2];
+  unsigned short grade;
 
 public:
   Travels();

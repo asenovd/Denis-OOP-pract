@@ -22,24 +22,27 @@ std::ostream &operator<<(std::ostream &ostr, Userdb &temp) {
   return ostr;
 }
 
-void Userdb::save() {
-  std::fstream file2("users.db", std::ios::out | std::ios::binary | std::ios::trunc);
+void Userdb::saveBIN() {
+  std::fstream file2("users.db", std::ios::out | std::ios::in | std::ios::binary);
 
   file2.seekp(0, std::ios::beg);
   file2.write((char*)&count, sizeof(count));
-  file2.seekp(0, std::ios::end);
   file2.close();
 
-  data[count-1]->saveRaw();
+  data[count-1]->saveRawBIN();
+
+  file2.close();
 }
-
-void Userdb::load() {
+void Userdb::loadBIN() {
   int counter = 0;
-  std::ifstream file("users.db", std::ios::binary);
+  std::fstream file("users.db", std::ios::out | std::ios::in | std::ios::binary);
+  if(!file.good()) {
+    file.close();
+    return;
+  }
   file.read((char*)&counter, sizeof(counter));
-  std::cout << counter << std::endl;
-
   for(unsigned i=0; i<counter; ++i) {
+
     int nameLen;
     file.read((char *)&nameLen, sizeof(nameLen));
     char* nname = new char[nameLen + 1];
@@ -57,11 +60,50 @@ void Userdb::load() {
     char* nemail = new char[emailLen + 1];
     file.read(nemail, emailLen);
     nemail[emailLen] = 0;
-
-    User temp(nname, npass, nemail);
+    User temp;
+    temp.setName(nname);
+    temp.setPass(npass);
+    temp.setEmail(nemail);
     this->push(temp.copy());
+    ///cout << "don't remove this or it breaks\n";
+
     delete[] nname;
     delete[] npass;
     delete[] nemail;
   }
+  file.close();
+}
+
+void Userdb::saveTXT() {
+  data[count-1]->saveRawTXT();
+}
+
+void Userdb::loadTXT() {
+  std::fstream file("users.db", std::ios::in);
+
+  const static int bSize = 512;
+  while (file.peek() != std::ifstream::traits_type::eof()) {
+    char buf[bSize];
+
+    file.getline(buf, bSize);
+    char* nname = new char[strlen(buf) + 1];
+    strcpy(nname, buf);
+
+    file.getline(buf, bSize);
+    char* npass = new char[strlen(buf) + 1];
+    strcpy(npass, buf);
+
+    file.getline(buf, bSize);
+    char* nemail = new char[strlen(buf) + 1];
+    strcpy(nemail, buf);
+
+    ///cout << nname << endl << npass << endl << nemail << endl << endl;
+    User temp;
+    temp.setName(nname);
+    temp.setPass(npass);
+    temp.setEmail(nemail);
+    this->push(temp.copy());
+    ///cout << "don't remove this or it breaks\n";
+  }
+  file.close();
 }
